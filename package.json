@@ -1,0 +1,25 @@
+{
+  "name": "hello-cloud-api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env DEBUG=hello-cloud:*,knex:query LOG_LEVEL=trace nodemon",
+    "migrate": "cross-env DEBUG=knex:query knex migrate:latest",
+    "migrate:make": "knex migrate:make",
+    "migrate:rollback": "cross-env DEBUG=knex:query knex migrate:rollback",
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "compose-middleware": "^5.0.1",
+    "express": "~4.16.1",
+    "express-validator": "^6.11.1",
+    "knex": "^0.95.6",
+    "log4js": "^6.3.0",
+    "pg": "^8.6.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.7"
+  }
+}
