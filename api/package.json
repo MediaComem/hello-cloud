@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "cross-env DEBUG=hello-cloud:*,knex:query LOG_LEVEL=trace nodemon",
-    "migrate": "cross-env DEBUG=knex:query knex migrate:latest",
+    "migrate": "knex migrate:latest",
     "migrate:make": "knex migrate:make",
-    "migrate:rollback": "cross-env DEBUG=knex:query knex migrate:rollback",
+    "migrate:rollback": "knex migrate:rollback",
     "start": "node ./bin/www"
   },
   "dependencies": {
