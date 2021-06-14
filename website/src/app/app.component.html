@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let greeting of greetings">{{ greeting.name }} was here {{ greeting.createdAt | amTimeAgo }}</li>
+</ul>
+
+<form (ngSubmit)="submit()">
+  <input type="text" name="name" [(ngModel)]="name" required>
+  <button type="submit">Submit</button>
+</form>

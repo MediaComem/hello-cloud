@@ -1,0 +1,7 @@
+# https://docs.docker.com/engine/reference/builder/#dockerignore-file
+/dist
+/Dockerfile
+/node_modules
+/.htmlhintrc
+/proxy.conf.json
+/README.md

@@ -1,0 +1,4 @@
+# http://help.github.com/ignore-files/
+/dist
+/tmp
+/node_modules
