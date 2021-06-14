@@ -18,16 +18,15 @@ RUN npm ci && \
     npm cache clean --force
 
 # Build the application.
-COPY --chown=hello:hello ./ /usr/src/app/
+COPY --chown=hello:hello .browserslistrc angular.json tsconfig.app.json tsconfig.json /usr/src/app/
+COPY --chown=hello:hello ./src/ /usr/src/app/src/
 RUN npm run build
 
 # Production Image
 # ================
 FROM nginx:1.21.0-alpine
 
-COPY --chown=nobody:nobody --from=builder /usr/src/app/dist/website/ /usr/share/nginx/html/
-
-# Configure nginx to run in the foreground.
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+COPY ./docker/nginx.conf /etc/nginx/nginx.conf
+COPY --chown=nobody:nobody --from=builder /usr/src/app/dist/website/ /usr/src/app/
 
 CMD [ "nginx" ]
