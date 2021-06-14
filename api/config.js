@@ -12,6 +12,8 @@ loadDotenvFile();
 const logLevels = [ 'fatal', 'error', 'warn', 'info', 'debug', 'trace' ];
 const logLevel = parseEnvLogLevel('LOG_LEVEL', 'info');
 
+exports.baseUrlPath = process.env.BASE_URL_PATH || '/';
+
 exports.createLogger = createLogger;
 
 exports.databaseUrl = process.env.DATABASE_URL || 'postgresql://localhost/hello-cloud';

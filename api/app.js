@@ -1,7 +1,7 @@
 const express = require('express');
 const { connectLogger } = require('log4js');
 
-const { createLogger } = require('./config');
+const { baseUrlPath, createLogger } = require('./config');
 const indexRoutes = require('./routes/index');
 const greetingsRoutes = require('./routes/greetings');
 
@@ -14,7 +14,15 @@ app.use(connectLogger(
 
 app.use(express.json());
 
-app.use('/', indexRoutes);
-app.use('/greetings', greetingsRoutes);
+const apiRouter = express.Router();
+
+apiRouter.use('/', indexRoutes);
+apiRouter.use('/greetings', greetingsRoutes);
+
+app.use(baseUrlPath, apiRouter);
+
+if (baseUrlPath !== '/') {
+  app.get('/', (req, res) => res.redirect(baseUrlPath));
+}
 
 module.exports = app;
