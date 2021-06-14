@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+
+  rp:
+    image: mei/hello-cloud-rp
+    build:
+      context: ./rp
+    networks:
+      api:
+      website:
+    ports:
+      - "3001:80"
+
+  website:
+    image: mei/hello-cloud-website
+    build:
+      context: ./website
+    networks:
+      website:
+
+  api:
+    image: mei/hello-cloud-api
+    build:
+      context: ./api
+    environment:
+      BASE_URL_PATH: /api
+      DATABASE_URL: postgresql://postgres:changeme@db/hello
+    networks:
+      api:
+      db:
+
+  db:
+    image: postgres:13.3-alpine
+    environment:
+      POSTGRES_PASSWORD: changeme
+      POSTGRES_DB: hello
+    networks:
+      db:
+    volumes:
+      - "db_data:/var/lib/postgresql/data"
+
+networks:
+  api:
+  db:
+  website:
+
+volumes:
+  db_data:
