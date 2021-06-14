@@ -11,6 +11,7 @@ services:
       website:
     ports:
       - "3001:80"
+    restart: on-failure
 
   website:
     image: mei/hello-cloud-website
@@ -18,6 +19,7 @@ services:
       context: ./website
     networks:
       website:
+    restart: on-failure
 
   api:
     image: mei/hello-cloud-api
@@ -29,6 +31,7 @@ services:
     networks:
       api:
       db:
+    restart: on-failure
 
   db:
     image: postgres:13.3-alpine
@@ -37,6 +40,7 @@ services:
       POSTGRES_DB: hello
     networks:
       db:
+    restart: on-failure
     volumes:
       - "db_data:/var/lib/postgresql/data"
 
