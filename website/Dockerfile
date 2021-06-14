@@ -26,3 +26,8 @@ RUN npm run build
 FROM nginx:1.21.0-alpine
 
 COPY --chown=nobody:nobody --from=builder /usr/src/app/dist/website/ /usr/share/nginx/html/
+
+# Configure nginx to run in the foreground.
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+
+CMD [ "nginx" ]
