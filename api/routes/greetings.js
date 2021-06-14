@@ -1,11 +1,12 @@
 const express = require('express');
 const { body } = require('express-validator');
 
-const { maxGreetings } = require('../config');
+const { createLogger, maxGreetings } = require('../config');
 const { db } = require('../db');
 const { route, validate } = require('./utils');
 
 const router = express.Router();
+const logger = createLogger('greetings');
 
 // Create a greeting.
 router.post(
@@ -27,6 +28,7 @@ router.post(
       .into('greetings')
       .returning('*');
 
+    logger.info(`Successfully created greeting ${insertedGreeting.id}`);
     res.status(201).send(serializeGreeting(insertedGreeting));
 
     await cleanUpOldGreetings();
@@ -74,4 +76,6 @@ async function cleanUpOldGreetings() {
     .table('greetings')
     .where('created_at', '<', oldestGreetingToKeep.created_at)
     .del();
+
+  logger.debug(`Successfully cleaned up greetings older than the last ${maxGreetings}`);
 }
