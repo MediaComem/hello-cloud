@@ -1,3 +1,4 @@
+# http://help.github.com/ignore-files/
 /.env*
 !/.env.sample
 /node_modules
